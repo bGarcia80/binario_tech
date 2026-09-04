@@ -1,0 +1,5 @@
+Thu Jul 30 07:16:38 PM UTC 2026
+cs-265537342280-default
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       2.4Gi       3.4Gi       1.1Mi       2.1Gi       5.3Gi
+Swap:             0B          0B          0B

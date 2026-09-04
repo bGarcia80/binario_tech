@@ -1,0 +1,20 @@
+========================================
+ Auditoria de Segurança de API
+ Data: 2026-08-07 22:27:42
+========================================
+-> Executando Tentativa 1...
+   [STATUS HTTP]: 401 Unauthorized
+   [RETORNO]: {"erro": "Acesso negado. Chave de API ausente ou inválida."}
+----------------------------------------
+-> Executando Tentativa 2...
+   [STATUS HTTP]: 401 Unauthorized
+   [RETORNO]: {"erro": "Acesso negado. Chave de API ausente ou inválida."}
+----------------------------------------
+-> Executando Tentativa 3...
+   [STATUS HTTP]: 401 Unauthorized
+   [RETORNO]: {"erro": "Acesso negado. Chave de API ausente ou inválida."}
+----------------------------------------
+-> Executando Tentativa 4...
+   [STATUS HTTP]: 200 OK
+   [RETORNO]: {"sucesso": true, "dados": "Acesso autorizado aos recursos."}
+----------------------------------------
