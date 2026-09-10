@@ -12,5 +12,5 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 
 app.listen(PORT, () => {
-	console.log(`[Binário Tech] Servidor de Autenticação JWT Aula 14 ativo na porta ${PORT}`);
+  console.log(`[Binário Tech] Servidor de Autenticação JWT Aula 14 ativo na porta ${PORT}`);
 });

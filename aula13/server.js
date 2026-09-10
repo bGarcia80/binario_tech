@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const veiculoRoutes = require('./src/routes/veiculoRoutes');
+const validarContentTypeJson = require('./src/middlewares/validarContentTypeJson');
 const gerenciadorErros = require('./src/middlewares/gerenciadorErros');
 
 const app = express();
@@ -14,12 +15,15 @@ app.use('/api/v1/veiculos', veiculoRoutes);
 
 // Rota para URLs não encontradas (404)
 app.use((req, res) => {
-	res.status(404).json({ status: "NAO_ENCONTRADO", mensagem: "Endpoint não encontrado na API." });
+  res.status(404).json({ status: "NAO_ENCONTRADO", mensagem: "Endpoint não encontrado na API." });
 });
+
+// Middleware de Validação do Content-Type
+app.use(validarContentTypeJson);
 
 // Middleware Global de Tratamento de Erros (Sempre o último middleware!)
 app.use(gerenciadorErros);
 
 app.listen(PORT, () => {
-	console.log(`[Binário Tech] Servidor de Validações Aula 13 ativo na porta ${PORT}`);
+  console.log(`[Binário Tech] Servidor de Validações Aula 13 ativo na porta ${PORT}`);
 });
