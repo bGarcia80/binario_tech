@@ -4,7 +4,7 @@ const scaniaRoutes = require('./src/routes/scaniaRoutes');
 const mercedesRoutes = require('./src/routes/mercedesRoutes');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3004;
 
 // Middlewares
 app.use(cors());

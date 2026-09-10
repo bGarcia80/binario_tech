@@ -2,6 +2,7 @@
 	"name": "aula13",
 	"version": "1.0.0",
 	"description": "Validação de Entrada e Tratamento de Erros - Binário Tech",
+	"description": "Validação de Entrada e Tratamento de Erros Binário Tech",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"

@@ -5,7 +5,7 @@ const conectarBanco = require('./src/config/database');
 const manutencaoRoutes = require('./src/routes/manutencaoRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3004;
 
 app.use(cors());
 app.use(express.json());

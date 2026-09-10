@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3004;
 const ARQUIVO_DADOS = path.join(__dirname, 'ocorrencias.json');
 
 app.use(cors());
