@@ -1,0 +1,4 @@
+- Mudança de Porta
+- Criação do Servidor de Prova Local
+- Alteração Simples
+- Criação do .gitignore
