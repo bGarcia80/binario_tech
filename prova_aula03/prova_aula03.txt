@@ -1,0 +1,70 @@
+===============================================================================
+               ENUNCIADO OFICIAL DA PROVA PRÁTICA 1 - AULA 03
+===============================================================================
+PROVA PRÁTICA 1: Automação CLI, Manipulação JSON e Gestão de Processos
+CURSO: Programação Back-End 1 (PBE1) - Consultoria Binário Tech
+VALOR TOTAL: 15,0 Pontos
+AMBIENTE: Google Cloud Shell | GitHub | Servidor Debian (Sala de Aula)
+===============================================================================
+
+AVISO IMPORTANTE AOS ALUNOS:
+Esta avaliação prática é a consolidação exata dos 8 EXERCÍCIOS DE FIXAÇÃO 
+trabalhados e praticados durante a Aula 03. Não há questões inéditas fora do 
+conteúdo ministrado. Os exercícios foram organizados em 6 Desafios Pontuados.
+
+-------------------------------------------------------------------------------
+DISTRIBUIÇÃO DE PONTOS PELOS DESAFIOS (15,0 PTS)
+-------------------------------------------------------------------------------
+
+DESAFIO 1: Servidor Express e Nova Rota Volvo (2,5 Pts)
+[Baseado no Exercício 04 da Aula 03]
+- Criar a pasta 'prova_aula03' no repositório individual 'binario_tech'.
+- Criar o servidor 'telemetria.js' com as rotas '/api/v1/scania', '/api/v1/mercedes',
+  '/api/v1/vw' e adicionar a nova rota '/api/v1/volvo' retornando os dados do
+  modelo 'FH 540', status 'ALERTA', conexao false e velocidade_media 0.
+- Executar a aplicação em segundo plano (background) na porta 3001.
+
+DESAFIO 2: Inspeção e Salvamento com HTTPie (2,5 Pts)
+[Baseado no Exercício 02 da Aula 03]
+- Efetuar uma requisição HTTP para a rota '/api/v1/mercedes' utilizando o 'httpie'.
+- Redirecionar e salvar o resultado da resposta JSON no arquivo 'mercedes.json'.
+
+DESAFIO 3: Filtragem Avançada de JSON com jq (2,5 Pts)
+[Baseado nos Exercícios 01, 03 e 07 da Aula 03]
+- Executar uma requisição via 'curl' para a rota '/api/v1/scania' e filtrar via
+  'jq' para exibir APENAS a chave 'modelo'.
+- Utilizar o 'jq' para ler o arquivo 'mercedes.json' e extrair APENAS o 'status'.
+- Efetuar uma requisição para a rota '/api/v1/vw' e filtrar via 'jq' para exibir
+  os campos 'montadora' e 'status' em uma única chamada.
+
+DESAFIO 4: Script Bash e Log de Auditoria (2,5 Pts)
+[Baseado no Exercício 06 da Aula 03]
+- Criar o script em Bash executável 'testar_telemetria.sh' realizando as chamadas
+  para as 4 rotas (Scania, Mercedes, VW e Volvo) formatadas com 'jq'.
+- Executar o script direcionando a saída completa para o arquivo de log 'relatorio.log'.
+
+DESAFIO 5: Gerenciamento de Processos Node.js (2,0 Pts)
+[Baseado nos Exercícios 05 e 08 da Aula 03]
+- Identificar o PID do processo 'telemetria.js' em execução no Debian via 'ps aux | grep node'.
+- Encerrar o processo forçadamente utilizando o comando 'kill -9 <PID>'.
+- Configurar o 'package.json' adicionando o script "start": "node telemetria.js".
+
+DESAFIO 6: Compilação, Versionamento Git e Execução no Debian (3,0 Pts)
+- Execução correta dos comandos sem erros no terminal Debian da sala de aula.
+- Sincronização e commit de todos os arquivos gerados (telemetria.js, mercedes.json,
+  testar_telemetria.sh, relatorio.log, package.json) na branch 'main'.
+- Envio oficial para o repositório remoto individual no GitHub via 'git push origin main'.
+
+-------------------------------------------------------------------------------
+INSTRUÇÕES DE ENTREGA
+-------------------------------------------------------------------------------
+Vocês devem enviar via formulário / Google Classroom:
+
+1. Link do Repositório GitHub do projeto 'binario_tech' (pasta prova_aula03).
+2. Upload dos arquivos 'telemetria.js', 'testar_telemetria.sh' e 'relatorio.log'.
+   * ATENÇÃO: Como o trabalho é realizado diretamente via terminal SSH no servidor
+     da sala de aula, você deve acessar o seu repositório no site do GitHub,
+     baixar esses 3 arquivos para o seu computador/dispositivo e anexa-los na entrega.
+3. Print/Captura de Tela do terminal do Servidor Debian mostrando a execução
+   do script 'testar_telemetria.sh' e o envio do 'git push' final.
+===============================================================================
