@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web-api:
+    build: .
+    container_name: binario_app_web
+    ports:
+      - "8084:3004"
+    environment:
+      - PORT=3004
+      - REDIS_URL=redis://redis-cache:6379
+    depends_on:
+      - redis-cache
+    networks:
+      - rede-binario
+
+  redis-cache:
+    image: redis:7-alpine
+    container_name: binario_redis_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - rede-binario
+
+networks:
+  rede-binario:
+    driver: bridge
+
+volumes:
+  redis_data:
