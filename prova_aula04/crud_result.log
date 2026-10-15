@@ -1,0 +1,141 @@
+=========================================
+Iniciando testes CRUD - qui 15 out 2026 13:25:53 -03
+=========================================
+
+[1] Executando POST para cadastrar Veículo 1 (Volvo FH540)...
+{
+  "id": 12,
+  "placa": "DEF-5678",
+  "montadora": "Volvo",
+  "modelo": "FH540",
+  "status": "DISPONIVEL"
+}
+
+
+[2] Executando POST para cadastrar Veículo 2 (Iveco Stralis)...
+{
+  "id": 13,
+  "placa": "GHI-9012",
+  "montadora": "Iveco",
+  "modelo": "Stralis",
+  "status": "DISPONIVEL"
+}
+
+
+[3] Executando PUT para atualizar todos os dados do Veículo ID 3...
+{
+  "mensagem": "Veiculo substituido com sucesso!",
+  "veiculo": {
+    "id": 3,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "EM MANUTENCAO"
+  }
+}
+
+
+[4] Executando DELETE para remover o Veículo ID 4...
+{
+  "erro": "Veiculo nao encontrado."
+}
+
+
+[5] Executando GET para listar a frota final...
+[
+  {
+    "id": 1,
+    "placa": "ABC-1234",
+    "montadora": "Scania",
+    "modelo": "R450",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 2,
+    "placa": "XYZ-9876",
+    "montadora": "Mercedes-Benz",
+    "modelo": "Actross",
+    "status": "EM_ROTA"
+  },
+  {
+    "id": 3,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "EM MANUTENCAO"
+  },
+  {
+    "id": 5,
+    "placa": "ABC-1234",
+    "montadora": "Volvo",
+    "modelo": "FH 540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 6,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 7,
+    "placa": "GHI-9012",
+    "montadora": "Iveco",
+    "modelo": "Stralis",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 7,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 8,
+    "placa": "GHI-9012",
+    "montadora": "Iveco",
+    "modelo": "Stralis",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 9,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 10,
+    "placa": "GHI-9012",
+    "montadora": "Iveco",
+    "modelo": "Stralis",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 11,
+    "placa": "KLL-9090",
+    "montadora": "Volvo",
+    "modelo": "FH 540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 12,
+    "placa": "DEF-5678",
+    "montadora": "Volvo",
+    "modelo": "FH540",
+    "status": "DISPONIVEL"
+  },
+  {
+    "id": 13,
+    "placa": "GHI-9012",
+    "montadora": "Iveco",
+    "modelo": "Stralis",
+    "status": "DISPONIVEL"
+  }
+]
+
+
+=========================================
+Testes finalizados com sucesso!

@@ -1,0 +1,96 @@
+===============================================================================
+PROVA PRÁTICA 02 — AULA 04: ARQUITETURA HTTP, ROTAS E APIS RESTFUL (PBE1)
+INSTITUIÇÃO: SENAI / Binario_Tech
+DISCIPLINA: PROGRAMAÇÃO BACK-END 1 (PBE1)
+DATA: 15/10/2026 | HORÁRIO: 13:00 ÀS 17:00 (5 HORAS / 225 MINUTOS)
+VALORAÇÃO TOTAL: 15,0 PONTOS
+AMBIENTE EXIGIDO: SERVIDOR LINUX DEBIAN (TERMINAL SSH)
+===============================================================================
+
+-------------------------------------------------------------------------------
+1. OBJETIVO DA AVALIAÇÃO
+-------------------------------------------------------------------------------
+Esta avaliação prática mede o domínio dos alunos sobre o ecossistema Node.js e o protocolo HTTP no ambiente Debian, avaliando:
+- Construção de APIs RESTful utilizando Express (frota_api.js).
+- Aplicação correta dos verbos HTTP (GET, POST, PATCH, PUT e DELETE).
+- Tratamento de payloads, validação de campos obrigatórios e respostas com Status Codes HTTP adequados (200 OK, 201 Created, 400 Bad Request, 404 Not Found).
+- Utilização de Query Params para filtragem de dados.
+- Automação de testes de rotas REST com Shell Script Bash (teste_crud.sh) e formatador jq.
+- Gerenciamento de processos Node.js e versionamento profissional com Git e GitHub.
+
+-------------------------------------------------------------------------------
+2. ESTRUTURA E ARTEFATOS OBRIGATÓRIOS
+-------------------------------------------------------------------------------
+A entrega deve ser organizada no servidor Debian dentro do diretório do repositório do aluno:
+
+~/binario_tech/prova_aula04/
+├── frota_api.js
+├── package.json
+├── package-lock.json
+├── teste_crud.sh
+└── crud_result.log
+
+-------------------------------------------------------------------------------
+3. REQUISITOS E DESAFIOS (15,0 PONTOS)
+-------------------------------------------------------------------------------
+
+[DESAFIO 1] Servidor Express & API RESTful de Frotas (frota_api.js) — (3,0 Pontos)
+Crie a aplicação frota_api.js rodando na porta alocada para o seu usuário (ex: 3000 + offset do aluno) com o banco de dados em memória inicial contendo:
+- GET /api/v1/veiculos: Lista todos os veículos. Deve suportar filtragem opcional por query param (ex: ?status=DISPONIVEL).
+- GET /api/v1/veiculos/:id: Busca e retorna um veículo específico pelo ID.
+- POST /api/v1/veiculos: Cadastra um novo veículo enviando no body os campos 'placa', 'montadora' e 'modelo'. Define o 'status' padrão como "DISPONIVEL" e retorna Status 201 Created.
+- PATCH /api/v1/veiculos/:id/status: Atualiza apenas o campo 'status' do veículo.
+- DELETE /api/v1/veiculos/:id: Remove o veículo da base de dados.
+
+[DESAFIO 2] Validações de Payload & Tratamento de Status Codes — (2,5 Pontos)
+No arquivo frota_api.js, garanta o tratamento rigoroso de exceções e erros HTTP:
+- No POST /api/v1/veiculos, valide se 'placa', 'montadora' e 'modelo' foram fornecidos. Se algum faltar, retorne Status 400 Bad Request e a mensagem de erro apropriada.
+- Nas rotas com parâmetro :id (GET, PATCH, DELETE), se o veículo não for localizado, retorne Status 404 Not Found com mensagem de erro explicativa.
+
+[DESAFIO 3] Implementação de Substituição Total via Rota PUT — (2,5 Pontos)
+Adicione a rota PUT /api/v1/veiculos/:id ao servidor frota_api.js:
+- A rota deve permitir a substituição completa de um veículo existente ('placa', 'montadora', 'modelo' e 'status').
+- Valide se todos os campos obrigatórios foram enviados no body (retornando 400 Bad Request em caso de falha).
+- Caso o ID não exista, retorne 404 Not Found.
+- Retorne o objeto atualizado com Status 200 OK.
+
+[DESAFIO 4] Automação de Testes Bash (teste_crud.sh) & Logs — (2,5 Pontos)
+Crie um script em Shell Script chamado teste_crud.sh que execute sequencialmente as seguintes operações no terminal via cURL/HTTPie e jq:
+1. Cabeçalho formatado com a data/hora da execução ($(date)).
+2. Cadastro de pelo menos 2 veículos (incluindo um Volvo FH 540) via POST.
+3. Consulta filtrada por veículos com status DISPONIVEL via GET com query param.
+4. Atualização de status via PATCH e substituição completa via PUT.
+5. Remoção de 1 veículo via DELETE.
+6. Redirecionamento de toda a saída de execução para o arquivo crud_result.log.
+
+*O script deve possuir permissão de execução (chmod +x teste_crud.sh).*
+
+[DESAFIO 5] Gerenciamento de Processos Node.js no Debian — (2,0 Pontos)
+No terminal do servidor Debian:
+1. Execute o servidor Node.js em background (node frota_api.js & ou via npm start).
+2. Mapeie o script "start" no arquivo package.json.
+3. Inspecione e identifique o PID do processo rodando no servidor com ps aux | grep node.
+4. Encerre o processo ao final com o comando kill -9 <PID>.
+
+[DESAFIO 6] Versionamento Git & Entrega no GitHub — (2,5 Pontos)
+1. Crie a pasta prova_aula04 dentro do repositório local binario_tech.
+2. Adicione todos os arquivos criados e faça o commit com uma mensagem padronizada (ex: feat: avaliacao pratica 02 - aula 04).
+3. Suba as alterações para o GitHub via git push origin main.
+4. Submeta no Google Classroom:
+   - O link direto do commit/repositório.
+   - As capturas de tela (prints) do terminal validando os testes e o git push.
+
+-------------------------------------------------------------------------------
+4. RUBRICA DE AVALIAÇÃO DETALHADA
+-------------------------------------------------------------------------------
+CRITÉRIO   | DESCRIÇÃO                                                       	| PONTOS
+-------------------------------------------------------------------------------
+Desafio 1  | Rotas CRUD RESTful Express em frota_api.js                       	| 3,0 Pts
+Desafio 2  | Validação de payload e Status Codes (200, 201, 400, 404)        	| 2,5 Pts
+Desafio 3  | Rota PUT /api/v1/veiculos/:id (substituição total)             	| 2,5 Pts
+Desafio 4  | Automação com Shell Script teste_crud.sh, jq e crud_result.log 	| 2,5 Pts
+Desafio 5  | Gerenciamento de processos no Debian (ps aux, kill, npm start)   	| 2,0 Pts
+Desafio 6  | Versionamento Git, commits estruturados e push no GitHub       	| 2,5 Pts
+-------------------------------------------------------------------------------
+TOTAL      |                                                                 	| 15,0 Pts
+===============================================================================

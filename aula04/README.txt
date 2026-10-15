@@ -1,13 +1,10 @@
 ========================================================================
-                        BINÁRIO TECH - AULA 03
+                        BINÁRIO TECH - AULA 04
                       Histórico de Versionamento
 ========================================================================
 
-NOME: Ana Lívia Paixão
-E-MAIL: pessoal - analiviaany@gmail.com
-        educacional - ana.l.paixao@edu.senai.br
-
-DESCRIÇÃO DO PROJETO: Inspecionar e filtrar respostas de APIs JSON via terminal e criar scripts em Bash (.sh) para testar rotas de telemetria automotiva (Scania, Mercedes-Benz, VW).
+NOME: Bruno Rodrigus Garcia
+E-MAIL: educacional - b.garcia@edu.senai.br
 
 ========================================================================
 
