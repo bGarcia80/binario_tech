@@ -1,0 +1,133 @@
+===============================================================================
+PROVA PRATICA 03 - AULA 05: MIDDLEWARES, ROTEAMENTO AVANCADO E SEGURANCA
+CURSO: PROGRAMACAO BACK-END 1 (PBE1) - CONSULTORIA BINARIO TECH
+DURACAO: 225 minutos (13:00 as 17:00 - Bloco de 5 Aulas)
+PONTUACAO TOTAL: 15,0 Pontos
+===============================================================================
+
+-------------------------------------------------------------------------------
+1. CONTEXTO DO PROJETO
+-------------------------------------------------------------------------------
+A Binario Tech esta a evoluir a sua infraestrutura de APIs para suportar o 
+ecossistema de gestao de frotas e telemetria. Para garantir escalabilidade e 
+seguranca, a API v2 precisa abandonar a estrutura monolitica e adotar uma 
+arquitetura modularizada por roteadores (express.Router), alem de implementar 
+uma pilha de middlewares para registo de acessos (logging), controlo de acesso 
+via chave de API (X-API-KEY), validacao rigorosa de dados de entrada e 
+tratamento global de rotas inexistentes (404).
+
+A sua missao nesta prova pratica e estruturar o projeto, implementar a pipeline 
+de middlewares e publicar a API modularizada no servidor Linux Debian.
+
+-------------------------------------------------------------------------------
+2. INSTRUCOES DE PREPARACAO DO AMBIENTE
+-------------------------------------------------------------------------------
+1. Aceda ao terminal da sua maquina no servidor Debian via SSH.
+2. Crie a pasta da prova no seu diretorio de trabalho e aceda a ela:
+   $ mkdir -p ~/binario_tech/prova_aula05
+   $ cd ~/binario_tech/prova_aula05
+
+3. Inicialize o projeto Node.js e instale as dependencias obrigatorias:
+   $ npm init -y
+   $ npm install express cors
+
+4. Crie a estrutura de diretorios do projeto:
+   $ mkdir -p routes middlewares
+
+-------------------------------------------------------------------------------
+3. DESAFIOS E DISTRIBUICAO DE PONTOS (TOTAL: 15,0 PTS)
+-------------------------------------------------------------------------------
+
+DESAFIO 1: ESTRUTURACAO DO SERVIDOR E ROTA PUBLICA DE HEALTH CHECK (2,5 PTS)
+---------------------------------------------------------------------------
+Crie o arquivo principal 'app.js' configurando as politicas e middlewares globais:
+- Ative o suporte a JSON (express.json()) e a politica CORS (cors()).
+- Crie a rota publica de validacao da API: GET /api/v1/health.
+- Resposta Esperada (200 OK):
+  {
+    "status": "ONLINE",
+    "aplicacao": "Binario Tech API v2"
+  }
+
+
+DESAFIO 2: MIDDLEWARES GLOBAIS DE LOGGING E AUTENTICACAO (2,5 PTS)
+------------------------------------------------------------------
+Implemente os middlewares de infraestrutura nas pastas correspondentes:
+1. 'middlewares/logger.js': Deve registar no console o timestamp em formato ISO, 
+   o metodo HTTP, a URL original, o codigo de status HTTP final e o tempo de 
+   resposta em ms (ex: [LOG 2026-10-22T13:30:00.000Z] GET /api/v1/health - Status: 200 (4ms)).
+2. 'middlewares/auth.js': Deve validar o header HTTP 'X-API-KEY'.
+   - A chave valida e: binario-tech-secret-2026
+   - Se o header estiver ausente ou incorreto, deve interromper o fluxo e 
+     retornar status 401 Unauthorized:
+     {
+       "erro": "Acesso nao autorizado. Header 'X-API-KEY' invalido ou ausente."
+     }
+
+
+DESAFIO 3: ROTEAMENTO MODULARIZADO COM EXPRESS ROUTER (2,5 PTS)
+----------------------------------------------------------------
+Crie e modularize os dois roteadores da aplicacao:
+1. 'routes/motoristas.js':
+   - GET /: Retorna a lista de motoristas cadastrados (200 OK).
+   - POST /: Cadastra um novo motorista garantindo os campos obrigatorios 'nome', 
+     'cnh' e 'categoria'. Retorna o motorista criado com ID auto-incrementado e 
+     status 'ativo: true' (201 Created). Se faltar algum campo, retorna 400 Bad Request.
+2. 'routes/manutencoes.js':
+   - GET /: Retorna a lista de orcamentos de manutencao dos caminhoes (200 OK).
+   - POST /: Cadastra um novo orcamento com os campos 'placa', 'descricao' e 'valor' (201 Created).
+3. Mapeamento Protegido em 'app.js':
+   - Registe ambos os roteadores protegendo-os obrigatoriamente com o 'authMiddleware' 
+     sob os caminhos '/api/v1/motoristas' e '/api/v1/manutencoes'.
+
+
+DESAFIO 4: MIDDLEWARE CUSTOMIZADO DE VALIDACAO DE CNH E ERRO 404 (2,5 PTS)
+---------------------------------------------------------------------------
+1. 'middlewares/validaCnh.js':
+   - Crie um middleware exclusivo de validacao para verificar se o campo 'cnh' 
+     enviado no corpo da requisicao POST contem exatamente 11 digitos numericos.
+   - Se a CNH for invalida (ex: "123" ou contiver letras), retorne status 400 Bad Request:
+     {
+       "erro": "CNH invalida. A CNH deve conter exatamente 11 digitos numericos."
+     }
+   - Aplique este middleware especificamente na rota POST /api/v1/motoristas.
+2. Tratamento Global de Erros (404):
+   - No final do 'app.js', adicione um middleware global para capturar qualquer 
+     rota nao encontrada, retornando status 404 Not Found:
+     {
+       "erro": "Endpoint nao encontrado no servidor Binario Tech."
+     }
+
+
+DESAFIO 5: SCRIPT BASH DE TESTES E LOG DE AUDITORIA (2,0 PTS)
+-------------------------------------------------------------
+Crie um script em Shell Bash chamado 'teste_seguranca.sh' na raiz da prova para 
+automatizar a verificacao das rotas:
+1. Testar acesso nao autorizado (sem header 'X-API-KEY') em /api/v1/motoristas (deve retornar 401).
+2. Testar acesso com chave invalida ('X-API-KEY: chave-errada') (deve retornar 401).
+3. Testar tentativa de cadastro com CNH invalida (ex: "123") usando chave valida (deve retornar 400).
+4. Testar acesso a uma rota inexistente como /api/v1/clientes (deve retornar 404).
+5. Testar consulta e cadastro bem-sucedidos em /api/v1/motoristas e /api/v1/manutencoes 
+   usando a chave de API valida.
+6. Torne o script executavel ($ chmod +x teste_seguranca.sh) e execute-o 
+   redirecionando a saída para o arquivo de log:
+   $ ./teste_seguranca.sh > audit_seguranca.log
+
+
+DESAFIO 6: VERSIONAMENTO GIT, ENCERRAMENTO DE PROCESSOS E ENVIO (3,0 PTS)
+-------------------------------------------------------------------------
+1. Execute a API em background ($ node app.js &) e tire capturas de tela (prints) 
+   demonstrando as saídas do curl e dos logs no terminal Debian.
+2. Identifique o processo Node rodando no sistema via '$ ps aux | grep node' e 
+   encerre-o utilizando o comando '$ kill -9 <PID>'.
+3. Faca o commit e o push de todo o codigo para o seu repositoro no GitHub na branch main.
+
+-------------------------------------------------------------------------------
+4. INSTRUCOES DE ENTREGA NO GOOGLE CLASSROOM
+-------------------------------------------------------------------------------
+1. Realize o git push de todas as alteracoes para o seu repositorio no GitHub.
+2. Baixe os arquivos do projeto para a sua maquina local ('app.js', pasta 'routes/', 
+   pasta 'middlewares/', 'teste_seguranca.sh' e 'audit_seguranca.log').
+3. Anexe os arquivos baixados, o link do seu repositorio no GitHub e os prints do 
+   terminal Debian na atividade correspondente do Google Classroom.
+===============================================================================
